@@ -1,0 +1,49 @@
+<!-- Barry Al-Jawari AE2699 -->
+<!doctype html>
+<html>
+
+<head>
+    <title>Inlämning 6</title>
+	<div id="ds-app"></div>
+    <meta charset="utf-8">
+    <script src="react.min.js"></script>
+    <script src="react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="welcome"></div>
+    <div id="information"></div>
+    <div id="root"></div>
+    <script type="text/babel"> 
+
+
+var Hello = React.createClass({
+    render: function() {
+        return (
+            <h1>Welcome to my mashup!</h1>
+        );
+    }
+});
+
+ReactDOM.render(
+    <Hello />, document.getElementById("welcome")
+);
+
+var Info = React.createClass({
+    render: function() {
+        return(
+            <p id="infoPara">All you need to do to use this mashup, is enter an english word into the box and hit search! You'll get synonyms and definitions of the entered word back!</p>
+        )
+    }
+});
+
+ReactDOM.render(
+    <Info />, document.getElementById("information")
+);
+    </script>
+    <script type="text/babel" src="script.js"></script>
+</body>
+
+</html>
