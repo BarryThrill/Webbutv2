@@ -1,0 +1,150 @@
+<!-- Barry Al-Jawari AE2699-->
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Inlämning 5</title>
+    <meta charset="utf-8">
+    <script src="react.min.js"></script>
+    <script src="react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="root"></div>
+    <div id="information"></div>
+    <div id="addMovie"></div>
+    <div id="movieInfoLayout"></div>
+    <div id="showMovies"></div>
+    <script type="text/babel"> 
+    http://stackoverflow.com/questions/36388621/getting-a-value-of-input-field-in-a-react-component
+var movies = [
+{"title": "The Revenant", "year": "2015", "rating": 5}, 
+{"title": "The Da Vinci Code", "year": "2006", "rating": 5}]
+
+
+var Hello = React.createClass({
+    render: function() {
+        return (
+            <h1>Välkommen till min filmdatabas!</h1>
+        );
+    }
+});
+
+ReactDOM.render(
+    <Hello />, document.getElementById("root")
+);
+
+var Info = React.createClass({
+    render: function() {
+        return(
+            <p id="infoPara">För att lägga till en film, fyller du i de nedstående fälten och trycker på knappen "Spara film" <br />
+            För att redigera en film, fyller du i de nedstående fälten och trycker på knappen "Redigera film" under rätt film! <br />
+            För att ta bort en film, trycker du på knappen "Ta bort film" under rätt film!"</p>
+        )
+    }
+});
+
+ReactDOM.render(
+    <Info />, document.getElementById("information")
+);
+
+
+var Add = React.createClass({
+
+    addMovie: function() {
+        var title = document.getElementById("movieTitle").value;
+        var year = document.getElementById("movieYear").value;
+        var rating = document.getElementById("movieRating").value;
+        movies.push({"title": title, "year": year, "rating": rating})
+        ReactDOM.render(
+    <ShowMovies />,
+    document.getElementById("showMovies")
+);
+    },
+    
+    render: function() {
+        return(
+            <div>
+                <h2 className="instruction">Film titel</h2>
+                <input type="text" id="movieTitle" className="movieInput"></input>
+                
+                <h2 className="instruction" >År</h2>
+                <input type="text" id="movieYear" className="movieInput"></input>
+                
+                <h2 className="instruction">Betyg 1-5</h2>
+                <input type="text" id="movieRating" className="movieInput"></input>
+                <br />
+                <br />
+                <button id="saveMovie" className="movieBtn" type="button" onClick={this.addMovie}>Spara film</button>
+            </div>
+        )
+    }
+})
+
+ReactDOM.render(
+    <Add />,
+    document.getElementById("addMovie")
+);
+
+var MovieLayout = React.createClass({
+    render : function() {
+        return(
+            <div className="movieInfo">
+                <h3>Film - År - Betyg </h3>
+            </div>
+        )
+    }
+});
+
+ReactDOM.render(
+    <MovieLayout />, document.getElementById("movieInfoLayout")
+);
+
+var ShowMovies = React.createClass({
+    
+    deleteMovie: function(movie) {
+        this.state.movies.splice(this.state.movies.indexOf(movie),1);
+        this.setState({movies: this.state.movies});
+    },
+    
+    editMovie: function(movie) {
+        movie.title = document.getElementById("movieTitle").value;
+        movie.year = document.getElementById("movieYear").value;
+        movie.rating = document.getElementById("movieRating").value;
+        this.setState({movies: this.state.movies});
+    },
+
+    getInitialState: function() {
+        return {
+            movies: movies
+        }
+    }, 
+    render: function() {
+        var that = this;
+        return (
+            <div>
+                {this.state.movies.map(function (movie) {
+                    return (
+                        <div className="movieInfo">
+                            <h3>{movie.title} - {movie.year} - {movie.rating}</h3>
+                            <button className="movieBtn" onClick={that.deleteMovie.bind(null,movie)}>Ta bort film</button>
+                            <button className="movieBtn" onClick={that.editMovie.bind(null,movie)}>Redigera film</button>
+                        </div>
+                    )
+                })}
+            </div>
+            )
+        }
+})
+
+ReactDOM.render(
+    <ShowMovies />,
+    document.getElementById("showMovies")
+);
+
+    </script>
+</body>
+
+</html>
